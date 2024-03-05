@@ -1,0 +1,101 @@
+game_id,title,developer,publisher,release_date,genre,platform,description,rating,price
+1,The Legend of Zelda: Breath of the Wild,Nintendo,Nintendo,2017-03-03,Action-Adventure,Nintendo Switch,"Explore a vast open world filled with puzzles, dungeons, and enemies in this critically-acclaimed game.",9.7,59.99
+2,Red Dead Redemption 2,Rockstar Games,Rockstar Games,2018-10-26,Action-Adventure,PlayStation 4, Xbox One,"Experience the life of an outlaw in the American West in this epic game set in the late 1800s.",9.5,59.99
+3,The Witcher 3: Wild Hunt,CD Projekt Red,CD Projekt Red,2015-05-19,Role-Playing,PC, PlayStation 4, Xbox One,"Embark on a journey to find your missing daughter in this sprawling, open-world RPG.",9.3,49.99
+4,Fortnite,Epic Games,Epic Games,2017-07-25,Action,PC, PlayStation 4, Xbox One,"Battle it out with other players in this popular online multiplayer game.",8.5,Free
+5,Minecraft,Mojang Studios,Mojang Studios,2011-11-18,Sandbox,PC, PlayStation 4, Xbox One,"Build, explore, and survive in a blocky, procedurally-generated world.",8.9,26.95
+6,Grand Theft Auto V,Rockstar Games,Rockstar Games,2013-09-17,Action-Adventure,PC, PlayStation 4, Xbox One,"Explore the city of Los Santos and its surrounding areas as three different characters in this open-world crime game.",9.2,29.99
+7,Portal 2,Valve Corporation,Valve Corporation,2011-04-19,Puzzle-Platformer,PC, PlayStation 3, Xbox 360,"Solve puzzles using portals and other tools in this critically-acclaimed game.",9.5,19.99
+8,Dark Souls III,FromSoftware,Bandai Namco Entertainment,2016-04-12,Action-RPG,PC, PlayStation 4, Xbox One,"Face challenging enemies and bosses in this dark, atmospheric game.",9.0,59.99
+9,Overwatch,Blizzard Entertainment,Blizzard Entertainment,2016-05-24,First-Person Shooter,PC, PlayStation 4, Xbox One,"Choose from a diverse cast of heroes and battle it out in this team-based multiplayer game.",8.8,39.99
+10,The Elder Scrolls V: Skyrim,Bethesda Game Studios,Bethesda Softworks,2011-11-11,Role-Playing,PC, PlayStation 4, Xbox One,"Explore the vast world of Skyrim and become the Dragonborn in this epic RPG.",9.1,39.99
+11,BioShock Infinite,Irrational Games,2K Games,2013-03-26,First-Person Shooter,PC, PlayStation 3, Xbox 360,"Explore the floating city of Columbia and fight against enemy factions in this critically-acclaimed game.",9.4,29.99
+12,Mass Effect 2,BioWare,Electronic Arts,2010-01-26,Role-Playing,PC, PlayStation 3, Xbox 360,"Assemble a team of allies and save the galaxy from a deadly threat in this epic RPG.",9.2,19.99
+13,Half-Life 2,Valve Corporation,Valve Corporation,2004-11-16,First-Person Shooter,PC,"Fight against alien invaders and solve puzzles in this critically-acclaimed game.",9.6,9.99
+14,God of War,Santa Monica Studio,Sony Interactive Entertainment,2018-04-20,Action-Adventure,PlayStation 4,"Embark on a journey with Kratos and his son Atreus in this epic game set in Norse mythology.",9.4,39.99
+15,Uncharted 4: A Thief's End,Naughty Dog,Sony Interactive Entertainment,2016-05-10,Action-Adventure,PlayStation 4,"Embark on a treasure-hunting adventure with Nathan Drake in this critically-acclaimed game.",9.3,19.99
+16,Resident Evil 2,Capcom,Capcom,2019-01-25,Survival Horror,PC, PlayStation 4, Xbox One,"Survive a zombie outbreak in Raccoon City in this remake of the classic survival horror game.",9.1,39.99
+17,The Last of Us Part II,Naughty Dog,Sony Interactive Entertainment,2020-06-19,Action-Adventure,PlayStation 4,"Survive in a post-apocalyptic world and seek revenge in this critically-acclaimed game.",9.3,59.99
+18,Fallout 4,Bethesda Game Studios,Bethesda Softworks,2015-11-10,Role-Playing,PC, PlayStation 4, Xbox One,"Explore a post-apocalyptic world and rebuild society in this epic RPG.",8.8,29.99
+19,Doom Eternal,id Software,Bethesda Softworks,2020-03-20,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against demons and save humanity in this fast-paced shooter.",8.9,59.99
+20,Assassin's Creed Odyssey,Ubisoft Quebec,Ubisoft,2018-10-05,Action-RPG,PC, PlayStation 4, Xbox One,"Explore ancient Greece and become a legendary Spartan hero in this epic RPG.",8.7,59.99
+21,Super Mario Odyssey,Nintendo,Nintendo,2017-10-27,Platformer,Nintendo Switch,"Explore various worlds and collect Power Moons in this critically-acclaimed game.",9.7,59.99
+22,Celeste,Matt Makes Games,Matt Makes Games,2018-01-25,Platformer,PC, PlayStation 4, Xbox One,"Overcome challenges and climb a mountain in this critically-acclaimed indie game.",9.2,19.99
+23,Hollow Knight,Team Cherry,Team Cherry,2017-02-24,Metroidvania,PC, PlayStation 4, Xbox One,"Explore a vast underground world and defeat enemies in this critically-acclaimed indie game.",9.3,14.99
+24,Ori and the Will of the Wisps,Moon Studios,Xbox Game Studios,2020-03-11,Platformer,PC, Xbox One,"Explore a beautiful world and solve puzzles in this critically-acclaimed game.",9.1,29.99
+25,Cuphead,StudioMDHR,StudioMDHR,2017-09-29,Run and Gun,PC, Xbox One,"Fight against bosses and overcome challenges in this critically-acclaimed game.",8.8,19.99
+26,Sekiro: Shadows Die Twice,FromSoftware,Activision,2019-03-22,Action-Adventure,PC, PlayStation 4, Xbox One,"Fight against enemies and explore a vast world in this critically-acclaimed game.",9.1,59.99
+27,Control,Remedy Entertainment,505 Games,2019-08-27,Action-Adventure,PC, PlayStation 4, Xbox One,"Explore a mysterious building and fight against supernatural enemies in this critically-acclaimed game.",8.8,29.99
+28,Death Stranding,Kojima Productions,Sony Interactive Entertainment,2019-11-08,Action,PlayStation 4,"Deliver packages and connect a fractured society in this critically-acclaimed game.",8.6,59.99
+29,Final Fantasy VII Remake,Square Enix,Square Enix,2020-04-10,Role-Playing,PlayStation 4,"Explore a vast world and fight against enemies in this critically-acclaimed remake.",9.0,59.99
+30,Ghost of Tsushima,Sucker Punch Productions,Sony Interactive Entertainment,2020-07-17,Action-Adventure,PlayStation 4,"Explore a vast open world and fight against enemies in this critically-acclaimed game.",8.8,59.99
+31,Horizon Zero Dawn,Guerrilla Games,Sony Interactive Entertainment,2017-02-28,Action-RPG,PlayStation 4,"Explore a post-apocalyptic world and fight against robot creatures in this critically-acclaimed game.",8.9,19.99
+32,Marvel's Spider-Man,Insomniac Games,Sony Interactive Entertainment,2018-09-07,Action-Adventure,PlayStation 4,"Swing through New York City and fight against villains in this critically-acclaimed game.",8.7,39.99
+33,Persona 5 Royal,Atlus,Atlus,2020-03-31,Role-Playing,PlayStation 4,"Lead a group of high school students and fight against supernatural enemies in this critically-acclaimed RPG.",9.3,59.99
+34,Ratchet & Clank,Insomniac Games,Sony Interactive Entertainment,2016-04-12,Platformer,PlayStation 4,"Explore various worlds and fight against enemies in this critically-acclaimed game.",8.7,19.99
+35,Spider-Man: Miles Morales,Insomniac Games,Sony Interactive Entertainment,2020-11-12,Action-Adventure,PlayStation 4, PlayStation 5,"Swing through New York City and fight against villains in this critically-acclaimed game.",8.8,49.99
+36,Star Wars Jedi: Fallen Order,Respawn Entertainment,Electronic Arts,2019-11-15,Action-Adventure,PC, PlayStation 4, Xbox One,"Fight against the Empire and explore various planets in this critically-acclaimed game.",8.5,39.99
+37,Watch Dogs: Legion,Ubisoft Toronto,Ubisoft,2020-10-29,Action-Adventure,PC, PlayStation 4, Xbox One,"Hack into various systems and fight against a corrupt government in this critically-acclaimed game.",8.3,59.99
+38,Yakuza: Like a Dragon,Ryu Ga Gotoku Studio,Sega,2020-11-10,Role-Playing,PlayStation 4, PlayStation 5, Xbox One, Xbox Series X/S,"Fight against enemies and explore a vast world in this critically-acclaimed RPG.",8.8,59.99
+39,Age of Empires II: Definitive Edition,Forgotten Empires,Xbox Game Studios,2019-11-14,Strategy,PC,"Build and manage an empire in this critically-acclaimed strategy game.",8.9,19.99
+40,Civilization VI,Firaxis Games,2K Games,2016-10-21,Strategy,PC,"Build and manage an empire throughout history in this critically-acclaimed strategy game.",8.8,59.99
+41,Crusader Kings III,Paradox Development Studio,Paradox Interactive,2020-09-01,Strategy,PC,"Manage a medieval dynasty and expand your kingdom in this critically-acclaimed strategy game.",9.1,49.99
+42,Football Manager 2021,Sports Interactive,Sega,2020-11-24,Sports,PC,"Manage a football team and lead them to victory in this critically-acclaimed sports game.",8.5,54.99
+43,Hearts of Iron IV,Paradox Development Studio,Paradox Interactive,2016-06-06,Strategy,PC,"Lead a country through World War II in this critically-acclaimed strategy game.",8.6,39.99
+44,Total War: Three Kingdoms,Creative Assembly,Sega,2019-05-23,Strategy,PC,"Lead a faction in ancient China and conquer the land in this critically-acclaimed strategy game.",8.7,59.99
+45,XCOM 2,Firaxis Games,2K Games,2016-02-05,Strategy,PC,"Fight against aliens and save humanity in this critically-acclaimed strategy game.",8.9,29.99
+46,Apex Legends,Respawn Entertainment,Electronic Arts,2019-02-04,Battle Royale,PC, PlayStation 4, Xbox One,"Battle against other players in this popular online multiplayer game.",8.6,Free
+47,Call of Duty: Warzone,Infinity Ward,Activision,2020-03-10,Battle Royale,PC, PlayStation 4, Xbox One,"Battle against other players in this popular online multiplayer game.",8.4,Free
+48,Fortnite: Save the World,Epic Games,Epic Games,2017-07-25,Survival,PC, PlayStation 4, Xbox One,"Fight against zombies and defend your base in this critically-acclaimed game.",8.3,39.99
+49,PlayerUnknown's Battlegrounds,PUBG Corporation,PUBG Corporation,2017-12-20,Battle Royale,PC, PlayStation 4, Xbox One,"Battle against other players in this popular online multiplayer game.",8.0,29.99
+50,Rainbow Six Siege,Ubisoft Montreal,Ubisoft,2015-12-01,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.7,39.99
+51,Rocket League,Psyonix,Psyonix,2015-07-07,Sports,PC, PlayStation 4, Xbox One,"Play soccer with cars in this critically-acclaimed multiplayer game.",8.9,19.99
+52,Tom Clancy's Ghost Recon: Breakpoint,Ubisoft Paris,Ubisoft,2019-10-04,Third-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",7.8,29.99
+53,Tom Clancy's Rainbow Six Extraction,Ubisoft Montreal,Ubisoft,2021-09-16,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against aliens in this critically-acclaimed multiplayer game.",8.0,39.99
+54,Valorant,Riot Games,Riot Games,2020-06-02,First-Person Shooter,PC,"Fight against other players in this popular online multiplayer game.",8.5,Free
+55,Among Us,InnerSloth,InnerSloth,2018-11-16,Social Deduction,PC, iOS, Android,"Find the impostor among your crew in this popular online multiplayer game.",8.2,Free
+56,Fall Guys: Ultimate Knockout,Mediatonic,Devolver Digital,2020-08-04,Platformer,PC, PlayStation 4,"Compete against other players in this popular online multiplayer game.",8.1,19.99
+57,Animal Crossing: New Horizons,Nintendo,Nintendo,2020-03-20,Life Simulation,Nintendo Switch,"Build and manage a village in this critically-acclaimed life simulation game.",9.0,59.99
+58,Stardew Valley,ConcernedApe,ConcernedApe,2016-02-26,Life Simulation,PC, PlayStation 4, Xbox One,"Build and manage a farm in this critically-acclaimed life simulation game.",9.1,14.99
+59,The Sims 4,Maxis,Electronic Arts,2014-09-02,Life Simulation,PC,"Build and manage a virtual family in this critically-acclaimed life simulation game.",8.5,39.99
+60,Cities: Skylines,Colossal Order,Paradox Interactive,2015-03-10,City Building,PC,"Build and manage a city in this critically-acclaimed city-building game.",8.8,29.99
+61,Planet Coaster,Frontier Developments,Frontier Developments,2016-11-17,Simulation,PC,"Build and manage a theme park in this critically-acclaimed simulation game.",8.7,44.99
+62,Planet Zoo,Frontier Developments,Frontier Developments,2019-11-05,Simulation,PC,"Build and manage a zoo in this critically-acclaimed simulation game.",8.8,44.99
+63,RollerCoaster Tycoon 3: Complete Edition,Frontier Developments,Atari,2020-09-24,Simulation,PC,"Build and manage a theme park in this critically-acclaimed simulation game.",8.5,29.99
+64,Two Point Hospital,Two Point Studios,Sega,2018-08-30,Simulation,PC,"Build and manage a hospital in this critically-acclaimed simulation game.",8.6,34.99
+65,Kerbal Space Program,Squad,Private Division,2015-04-27,Simulation,PC,"Build and manage a space program in this critically-acclaimed simulation game.",8.8,39.99
+66,Microsoft Flight Simulator,Asobo Studio,Xbox Game Studios,2020-08-18,Simulation,PC,"Fly planes and explore the world in this critically-acclaimed simulation game.",9.0,59.99
+67,Euro Truck Simulator 2,SCS Software,SCS Software,2012-10-19,Simulation,PC,"Drive trucks and deliver cargo in this critically-acclaimed simulation game.",8.5,19.99
+68,Farming Simulator 19,GIANTS Software,Focus Home Interactive,2018-11-20,Simulation,PC,"Manage a farm and grow crops in this critically-acclaimed simulation game.",8.2,34.99
+69,American Truck Simulator,SCS Software,SCS Software,2016-02-02,Simulation,PC,"Drive trucks and deliver cargo in this critically-acclaimed simulation game.",8.4,19.99
+70,Elite Dangerous,Frontier Developments,Frontier Developments,2014-12-16,Simulation,PC,"Fly spaceships and explore the galaxy in this critically-acclaimed simulation game.",8.4,29.99
+71,Dirt Rally 2.0,Codemasters,Codemasters,2019-02-26,Racing,PC,"Race cars on various tracks in this critically-acclaimed racing game.",8.6,39.99
+72,Forza Horizon 4,Playground Games,Xbox Game Studios,2018-10-02,Racing,PC, Xbox One,"Race cars in an open world environment in this critically-acclaimed racing game.",9.2,59.99
+73,Gran Turismo Sport,Polyphony Digital,Sony Interactive Entertainment,2017-10-17,Racing,PlayStation 4,"Race cars on various tracks in this critically-acclaimed racing game.",8.3,19.99
+74,Project CARS 2,Slightly Mad Studios,Bandai Namco Entertainment,2017-09-22,Racing,PC,"Race cars on various tracks in this critically-acclaimed racing game.",8.5,59.99
+75,Assetto Corsa Competizione,Kunos Simulazioni,505 Games,2019-05-29,Racing,PC,"Race cars on various tracks in this critically-acclaimed racing game.",8.8,39.99
+76,iRacing,iRacing.com Motorsport Simulations,iRacing.com Motorsport Simulations,2008-08-26,Racing,PC,"Race cars on various tracks in this critically-acclaimed racing game.",9.0,13.00
+77,F1 2020,Codemasters,Codemasters,2020-07-10,Racing,PC,"Race Formula One cars on various tracks in this critically-acclaimed racing game.",8.7,59.99
+78,Rocket Arena,Final Strike Games,Nexon,2020-07-14,First-Person Shooter,PC,"Fight against other players in this critically-acclaimed multiplayer game.",7.5,Free
+79,Hyper Scape,Ubisoft Montreal,Ubisoft,2020-07-12,Battle Royale,PC,"Battle against other players in this critically-acclaimed multiplayer game.",7.5,Free
+80,Call of Duty: Modern Warfare,Infinity Ward,Activision,2019-10-25,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.5,59.99
+81,Battlefield V,DICE,Electronic Arts,2018-11-20,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.1,19.99
+82,Titanfall 2,Respawn Entertainment,Electronic Arts,2016-10-28,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.9,19.99
+83,Doom,id Software,Bethesda Softworks,2016-05-13,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against demons in this critically-acclaimed multiplayer game.",8.7,19.99
+84,Wolfenstein II: The New Colossus,MachineGames,Bethesda Softworks,2017-10-27,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against Nazis in this critically-acclaimed multiplayer game.",8.8,29.99
+85,Borderlands 3,Gearbox Software,2K Games,2019-09-13,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",8.5,29.99
+86,Destiny 2,Bungie,Bungie,2017-09-06,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",8.3,Free
+87,Tom Clancy's The Division 2,Massive Entertainment,Ubisoft,2019-03-15,Third-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",8.2,29.99
+88,Ghost Recon: Wildlands,Ubisoft Paris,Ubisoft,2017-03-07,Third-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",8.1,29.99
+89,Rainbow Six: Siege,Ubisoft Montreal,Ubisoft,2015-12-01,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.7,39.99
+90,The Division,Massive Entertainment,Ubisoft,2016-03-08,Third-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed multiplayer game.",8.0,19.99
+91,Watch Dogs 2,Ubisoft Montreal,Ubisoft,2016-11-15,Action-Adventure,PC, PlayStation 4, Xbox One,"Hack into various systems and fight against a corrupt government in this critically-acclaimed game.",8.4,29.99
+92,Assassin's Creed Origins,Ubisoft Montreal,Ubisoft,2017-10-27,Action-Adventure,PC, PlayStation 4, Xbox One,"Explore ancient Egypt and fight against enemies in this critically-acclaimed game.",8.5,29.99
+93,Far Cry 5,Ubisoft Montreal,Ubisoft,2018-03-27,First-Person Shooter,PC, PlayStation 4, Xbox One,"Fight against a cult in this critically-acclaimed game.",8.3,29.99
+94,Middle-earth: Shadow of War,Monolith Productions,Warner Bros. Interactive Entertainment,2017-10-10,Action-Adventure,PC, PlayStation 4, Xbox One,"Fight against enemies in this critically-acclaimed game.",8.2,19.99
+95,For Honor,Ubisoft Montreal,Ubisoft,2017-02-14,Fighting,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",7.9,14.99
+96,Dragon Ball FighterZ,Arc System Works,Bandai Namco Entertainment,2018-01-26,Fighting,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.8,59.99
+97,Mortal Kombat 11,NetherRealm Studios,Warner Bros. Interactive Entertainment,2019-04-23,Fighting,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.6,59.99
+98,Street Fighter V,Capcom,Capcom,2016-02-16,Fighting,PC, PlayStation 4,"Fight against other players in this critically-acclaimed multiplayer game.",8.0,19.99
+99,Tekken 7,Bandai Namco Studios,Bandai Namco Entertainment,2017-06-02,Fighting,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.3,39.99
+100,Soulcalibur VI,Bandai Namco Studios,Bandai Namco Entertainment,2018-10-19,Fighting,PC, PlayStation 4, Xbox One,"Fight against other players in this critically-acclaimed multiplayer game.",8.2,59.99
