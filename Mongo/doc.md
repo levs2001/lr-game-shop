@@ -40,11 +40,13 @@ collection = db['Info']
 collection.insert_many(df.to_dict('records'))
 
 ### 7. Ресурсы контейнера 
-Озу и CPU
+Озу и CPU  
+
+
 ![image](https://github.com/levs2001/lr-game-shop/assets/86722732/0efecbea-aa7b-46bc-8680-31fc124a8e87)
 
-Память диска задаем в size.
-volumes:
+Память диска задаем в size.  
+volumes:  
   - ./data/mongo-1:/data/db,size=100m
 
 
