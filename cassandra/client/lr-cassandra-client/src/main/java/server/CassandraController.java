@@ -23,12 +23,11 @@ public class CassandraController {
         this.cassandraConnector = cassandraConnector;
     }
 
-    // TODO: такая штука работать не будет из-за некорректных символов в запросе
     @GetMapping(value = "/cassandra/game-shop")
-    ResponseEntity<List<String>> query(@RequestParam String query) {
-        log.info("query. query: {}", query);
+    ResponseEntity<List<String>> query() {
+        log.info("Get query");
         Session session = cassandraConnector.getSession();
-        ResultSet result = session.execute(query);
+        ResultSet result = session.execute("SELECT * FROM shop.game_localization");
         log.info("Result set: {}", result);
 
         return new ResponseEntity<>(result.all().stream().map(r -> r.getString(0)).toList(), HttpStatus.OK);

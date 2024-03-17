@@ -7,9 +7,12 @@
 
 # Making cluster 
 Можно поднимать через docker-compose. Там описан кластер из 3х нод. Сиды настроены так, что каждая нода gossip-ит каждую (на маленьком кластере это ок).
+
+Перед запуском кластера соберите image клиента. См. параграф отдельный клиент.
+
 В папке с docker-compose.yml запустите команду
 ```
-docker-compose up​ -d
+docker-compose up
 ```
 
 После подъема кластера проверьте, что ноды видят друг друга:
@@ -22,12 +25,38 @@ docker exec -it 1.game-shop.cassandra nodetool status
 docker compose down
 ```
 
+Не забывайте, что можно посмотреть сколько RAM и cpu тратит каждая нода:
+```
+docker stats
+```
+
+## Ram limit
+Я задал лимит RAM для контейнеров кассандры в 3гб. Чтобы приложение кассандры не пыталась использовать больше, я задал 2  env параметра приложения (они задаются в паре):
+```
+    environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M
+```
+Подробнее про эти параетры тут https://docs.datastax.com/en/cassandra-oss/3.0/cassandra/operations/opsTuneJVM.html
 
 # Исполнение запросов 
 ## Отдельный клиент
-Рекомендуемый вариант.
-https://github.com/DataStax-Examples/java-cassandra-driver-from3x-to4x - тут пример с datastax, надо его посмотреть. Пока у меняне получается
-TODO
+Я создал клиент, который позволяет общаться с кластером кассандры (lr-game-shop/cassandra/client/lr-cassandra-client).
+
+Клиент нужно собрать, как отдельный image, для этого перейдите в папку lr-cassandra-client:
+```
+cd ..../lr-game-shop/cassandra/client/lr-cassandra-client
+```
+Соберите jar-ник приложения:
+```
+./gradlew bootJar
+```
+Создайте docker image:
+```
+docker build -t cassandra-client:0.0.1 .
+```
+
+Подробнее про упаковку своего приложения в docker контейнер можно почитать тут https://skillbox.ru/media/base/kak_rabotat_s_docker_upakovka_spring_boot_prilozheniya_v_konteyner/
 
 ## Исполнение с одной из нод
 Подключиесь к консоли одной из нод: 
@@ -47,11 +76,3 @@ docker run -it --network some-network --rm cassandra cqlsh some-cassandra
 
 # Заливка данных
 В файле data.cql команды для созданий keyspace и таблицы.
-
-# Client
-https://github.com/apache/cassandra-java-driver - connect to cluster with java
-https://www.baeldung.com/cassandra-with-java
-
-# TODO
-* Разобраться с volume storage, у нас будут большие объемы данных надо понять, где контейнер их хранит и как настраивать размер хранилища.
-* Написать клиент

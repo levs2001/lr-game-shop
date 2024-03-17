@@ -1,17 +1,16 @@
-# В теории cassandra порты можно и не открывать
+# Общение с кассандрой может производиться по 9042 порту (дефолтный).
+# Но я этот порт не открываю за пределы докера, поскольку общаться будем через клиент.
 version: '3.8'
 
 services:
-  
-  # Проверить порты внешние порты для драйвера. 40001 != порт для драйвера
   1.game-shop.cassandra:
     image: cassandra:5.0
     container_name: 1.game-shop.cassandra
-    ports:
-      - 9042:9042
     volumes:
-      - ./data/cassandra-1:/data/db
+      - ./data/cassandra-1:/data/db,size=10Gi
     environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M
       - CASSANDRA_SEEDS=1.game-shop.cassandra,2.game-shop.cassandra,3.game-shop.cassandra
     networks:
       - cassandra-network
@@ -20,15 +19,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    deploy:
+      resources:
+          limits:
+            memory: 3Gi
+            cpus: '1.0'
+          reservations:
+              memory: 256M
+              cpus: '0.25'
 
   2.game-shop.cassandra:
     image: cassandra:5.0
     container_name: 2.game-shop.cassandra
-    ports:
-      - 40002:40002
     volumes:
-      - ./data/cassandra-2:/data/db
+      - ./data/cassandra-2:/data/db,size=10Gi
     environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M      
       - CASSANDRA_SEEDS=1.game-shop.cassandra,2.game-shop.cassandra,3.game-shop.cassandra
     networks:
       - cassandra-network
@@ -37,15 +44,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    deploy:
+      resources:
+          limits:
+            memory: 3Gi
+            cpus: '1.0'
+          reservations:
+              memory: 256M
+              cpus: '0.25'
 
   3.game-shop.cassandra:
     image: cassandra:5.0
     container_name: 3.game-shop.cassandra
-    ports:
-      - 40003:40003
     volumes:
-      - ./data/cassandra-3:/data/db
+      - ./data/cassandra-3:/data/db,size=10Gi
     environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M
       - CASSANDRA_SEEDS=1.game-shop.cassandra,2.game-shop.cassandra,3.game-shop.cassandra
     networks:
       - cassandra-network
@@ -54,20 +69,39 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-  
+    deploy:
+      resources:
+          limits:
+            memory: 3Gi
+            cpus: '1.0'
+          reservations:
+              memory: 256M
+              cpus: '0.25'
+
   1.cassandra-client:
     image: cassandra-client:0.0.1
     container_name: 1.cassandra-client
+    # 8080 - порт на котором поднимается сервак спринговый. Маппим его в 40004, 
+    # по этому порту можно обращаться из вне.
     ports:
       - 40004:8080
     environment:
+      # Пока клиент подключается всего к одной ноде, потом доработаем, чтобы подключался ко всем.
       - CASSANDRA_NODE_ADDRESS=1.game-shop.cassandra
       - CASSANDRA_NODE_PORT=9042
     depends_on:
-      2.game-shop.cassandra:
+      1.game-shop.cassandra:
         condition: service_healthy
     networks:
       - cassandra-network
+    deploy:
+      resources:
+          limits:
+            memory: 3Gi
+            cpus: '1.0'
+          reservations:
+              memory: 256M
+              cpus: '0.25'
 
 networks:
   cassandra-network:
