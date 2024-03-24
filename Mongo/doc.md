@@ -57,7 +57,7 @@ volumes:
 Например добавить новый узел (mongo4) в реплика-сет:
 
 Добавить файл docker-compose:
-
+```
 mongo4:
     image: mongo:5
     container_name: mongo4
@@ -74,7 +74,7 @@ mongo4:
         reservations:
           memory: 256m
           cpus: '0.5'
-
+```
 
 Добавить инициализацию {_id:3,host:\"mongo4:30004\"}, в
  healthcheck:
