@@ -50,3 +50,32 @@ volumes:
   - ./data/mongo-1:/data/db,size=100m
 
 
+### 8. Фактор репликации
+
+Для увеличения фактора репликации MongoDB необходимо добавить новый узел в реплика-сет. Еть три узла (mongo1, mongo2, mongo3), монжно увеличить фактор репликации до 4 или более, добавив новые узлы.
+
+Например добавить новый узел (mongo4) в реплика-сет:
+
+Добавить файл docker-compose:
+
+mongo4:
+    image: mongo:5
+    container_name: mongo4
+    command: ["--replSet", "my-replica-set", "--bind_ip_all", "--port", "30004"]
+    volumes:
+      - ./data/mongo-4:/data/db,size=100m
+    ports:
+      - 30004:30004
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: '1'
+        reservations:
+          memory: 256m
+          cpus: '0.5'
+
+
+Добавить инициализацию {_id:3,host:\"mongo4:30004\"}, в
+ healthcheck:
+      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:30001\"},{_id:1,host:\"mongo2:30002\"},{_id:2,host:\"mongo3:30003\"}, {_id:3,host:\"mongo4:30004\"},]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1
