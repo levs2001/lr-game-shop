@@ -77,5 +77,7 @@ mongo4:
 ```
 
 Добавить инициализацию {_id:3,host:\"mongo4:30004\"}, в
+```
  healthcheck:
       test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"mongo1:30001\"},{_id:1,host:\"mongo2:30002\"},{_id:2,host:\"mongo3:30003\"}, {_id:3,host:\"mongo4:30004\"},]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1
+```
