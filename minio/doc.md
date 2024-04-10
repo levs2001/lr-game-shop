@@ -1,6 +1,8 @@
 ### 1.запускаем docker 
-### 2. ```docker-compose build
-		  docker-compose up```
+### 2. ``` 
+	docker-compose build
+	docker-compose up 
+     	```
 		  
 ### Описание 
 init.sh:  
