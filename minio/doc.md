@@ -53,3 +53,5 @@ minioClient.getObject(GetObjectArgs.builder()
 ```
 BufferedImage image = ImageIO.read(new File(downloadFilePath));
 ```
+
+https://www.youtube.com/watch?v=EIbB3BNwDYg&ab_channel=MinIO - гайд как читать картинки
