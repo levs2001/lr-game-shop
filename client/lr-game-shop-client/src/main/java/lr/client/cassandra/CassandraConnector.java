@@ -1,4 +1,4 @@
-package client.cassandra;
+package lr.client.cassandra;
 
 
 import com.datastax.driver.core.Cluster;
@@ -8,8 +8,11 @@ public class CassandraConnector {
     private Cluster cluster;
     private Session session;
 
-    public void connect(String node, Integer port) {
-        Cluster.Builder b = Cluster.builder().addContactPoint(node);
+    /**
+     * Адресов может быть много, но порт у всех один, так сделан драйвер.
+     */
+    public void connect(String[] addresses, Integer port) {
+        Cluster.Builder b = Cluster.builder().addContactPoints(addresses);
         if (port != null) {
             b.withPort(port);
         }

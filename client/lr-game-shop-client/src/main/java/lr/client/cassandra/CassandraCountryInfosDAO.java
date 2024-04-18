@@ -1,12 +1,14 @@
-package client.cassandra;
+package lr.client.cassandra;
 
-import client.ICountryInfosDAO;
-import client.SearchGamesCountryResult;
+import com.datastax.driver.core.Row;
+import java.util.HashMap;
+import lr.client.ICountryInfosDAO;
+import lr.client.SearchGamesCountryResult;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
-import domain.CountryInfo;
-import domain.LanguageCode;
+import lr.domain.CountryInfo;
+import lr.domain.CountryCode;
 import java.util.EnumMap;
 import java.util.Map;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     private static final String KEYSPACE = "game_shop";
-    private static final String TABLE = "country_infos";
+    private static final String TABLE = "country_info";
 
     private static final String C_GAME_ID = "game_id";
     private static final String C_LANGUAGE_CODE = "language_code";
@@ -33,36 +35,46 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
 
     // TODO: что по апдейтам и добавлению, когда уже существует
     @Override
-    public void add(long gameId, Map<LanguageCode, CountryInfo> countryInfos) {
+    public void add(long gameId, Map<CountryCode, CountryInfo> countryInfos) {
         for (var entry : countryInfos.entrySet()) {
             var countryField = entry.getValue();
             session.execute(
                 QueryBuilder.insertInto(KEYSPACE, TABLE).values(ALL_COLUMNS, new Object[] {
-                    gameId, entry.getKey(), countryField.title(), countryField.description(), countryField.price()
+                    gameId, entry.getKey().name(), countryField.title(), countryField.description(), countryField.price()
                 })
             );
         }
     }
 
     @Override
-    public Map<LanguageCode, CountryInfo> get(long gameId) {
+    public Map<CountryCode, CountryInfo> get(long gameId) {
         ResultSet resultSet = session.execute(
             QueryBuilder.select(ALL_COLUMNS).from(KEYSPACE, TABLE).where(QueryBuilder.eq(C_GAME_ID, gameId))
         );
 
-        Map<LanguageCode, CountryInfo> result = new EnumMap<>(LanguageCode.class);
-        resultSet.forEach(r ->
-            result.put(
-                LanguageCode.valueOf(r.getString(C_LANGUAGE_CODE)),
-                new CountryInfo(r.getString(C_TITLE), r.getString(C_DESCRIPTION), r.getDouble(C_PRICE))
-            )
-        );
+        Map<CountryCode, CountryInfo> result = new EnumMap<>(CountryCode.class);
+        resultSet.forEach(r -> putCountryEntry(result, r));
         return result;
     }
 
     @Override
-    public SearchGamesCountryResult searchByTitle(String title, int limit) {
-        // TODO
+    public SearchGamesCountryResult searchByTitle(CountryCode countryCode, String title, int limit) {
+        ResultSet resultSet = session.execute(
+            QueryBuilder.select(ALL_COLUMNS).from(KEYSPACE, TABLE)
+                .where(QueryBuilder.eq(C_TITLE, title)).and(QueryBuilder.eq(C_LANGUAGE_CODE, countryCode.name()))
+                .limit(limit).allowFiltering()
+        );
+        Map<Long, Map<CountryCode, CountryInfo>> results = new HashMap<>();
+        resultSet.forEach(r -> putCountryEntry(results.computeIfAbsent(r.getLong(C_GAME_ID), k -> new HashMap<>()), r));
+
+        return new SearchGamesCountryResult(results);
+    }
+
+    private void putCountryEntry(Map<CountryCode, CountryInfo> map, Row row) {
+        map.put(
+            CountryCode.valueOf(row.getString(C_LANGUAGE_CODE)),
+            CountryInfo.create(row.getString(C_TITLE), row.getString(C_DESCRIPTION), row.getDouble(C_PRICE))
+        );
     }
 
     @Override
@@ -74,8 +86,12 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
 
     private void initTable() {
         session.execute(String.format("""
+            CREATE KEYSPACE IF NOT EXISTS %s WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : '3' };
+            """, KEYSPACE));
+
+        session.execute(String.format("""
             CREATE TABLE IF NOT EXISTS %s.%s (
-                %s UUID,
+                %s BIGINT,
                 %s TEXT,
                 %s TEXT,
                 %s TEXT,
@@ -83,6 +99,10 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
                 PRIMARY KEY ((game_id), language_code)
             );
             """, KEYSPACE, TABLE, C_GAME_ID, C_LANGUAGE_CODE, C_TITLE, C_DESCRIPTION, C_PRICE));
+
+        session.execute(String.format("""
+            CREATE INDEX IF NOT EXISTS ON %s.%s (  %s );
+            """, KEYSPACE, TABLE, C_TITLE));
     }
 }
 

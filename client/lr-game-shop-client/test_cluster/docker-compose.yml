@@ -1,0 +1,44 @@
+# Общение с кассандрой может производиться по 9042 порту (дефолтный).
+version: '3.8'
+
+services:
+  1.game-shop.cassandra.test:
+    image: cassandra:5.0
+    container_name: 1.game-shop.cassandra.test
+    ports:
+      - "9042:9042"
+    volumes:
+      - ./data/cassandra-1:/data/db,size=10Gi
+    environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  1.game-shop.mongo.test:
+    image: mongo:5
+    container_name: 1.game-shop.mongo.test
+    command: ["--bind_ip_all", "--port", "30001"]
+    volumes:
+      - ./data/mongo-1:/data/db,size=100m
+    ports:
+      - "30001:30001"
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+          cpus: '1'
+        reservations:
+          memory: 256m
+          cpus: '0.5'

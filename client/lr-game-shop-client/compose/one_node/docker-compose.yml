@@ -1,0 +1,75 @@
+# Общение с кассандрой может производиться по 9042 порту (дефолтный).
+version: '3.8'
+
+services:
+  1.game-shop.client.one:
+    image: lr-game-shop-client:0.0.1
+    container_name: 1.game-shop.client.one
+    ports:
+      - "8080:8080"
+    environment:
+      - CASSANDRA_NODE_ADDRESSES=1.game-shop.cassandra.one
+      - CASSANDRA_NODE_PORT=9042
+      - MONGO_URI=mongodb://1.game-shop.mongo.one:30001/
+      - SERVER_TOMCAT_RELAXED-QUERY-CHARS=|,{,},[,],^
+    depends_on:
+      1.game-shop.cassandra.one:
+        condition: service_healthy
+      # Я хз как для одной ноды монги норм healthcheck сделать, да и Cassandra все равно дольше поднимается.
+      1.game-shop.mongo.one:
+        condition: service_started
+    networks:
+      - game-shop-network
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  1.game-shop.cassandra.one:
+    image: cassandra:5.0
+    container_name: 1.game-shop.cassandra.one
+    volumes:
+      - ./data/cassandra-1:/data/db,size=8G
+    environment:
+      - MAX_HEAP_SIZE=2048M
+      - HEAP_NEWSIZE=128M
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 3g
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  1.game-shop.mongo.one:
+    image: mongo:5
+    container_name: 1.game-shop.mongo.one
+    command: [ "--bind_ip_all", "--port", "30001" ]
+    volumes:
+      - ./data/mongo-1:/data/db,size=8G
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+networks:
+  game-shop-network:
+    driver: bridge

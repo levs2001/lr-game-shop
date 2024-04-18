@@ -22,8 +22,9 @@ docker exec -it mongo3 sh -c "mongo --port 30003"
 ```
 winpty docker exec -it mongo1 sh -c "mongo --port 30001" //для windwos добавить winpty 
 ```
+
 ### 5. Для подключения к кластеру uri:
-# ```mongodb://mongo1:30001,mongo2:30002,mongo3:30003/?replicaSet=my-replica-set ```
+```mongodb://mongo1:30001,mongo2:30002,mongo3:30003/?replicaSet=my-replica-set ```
 Например через mongo shell: 
 
 ```mongosh mongodb://mongo1:30001,mongo2:30002,mongo3:30003/?replicaSet=my-replica-set ```

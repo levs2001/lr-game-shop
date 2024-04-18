@@ -1,6 +1,6 @@
-package client;
+package lr.client;
 
-import domain.CommonInfo;
+import lr.domain.CommonInfo;
 import java.util.List;
 
 public interface ICommonInfoDAO {
