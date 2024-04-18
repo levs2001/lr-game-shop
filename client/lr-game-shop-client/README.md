@@ -12,7 +12,7 @@
 Сбилдите docker образ:
 
 ```shell
-docker build -t lr-game-shop-clien:0.0.1 .
+docker build -t lr-game-shop-client:0.0.1 .
 ```
 
 В папке _compose_ лежит 2 конфига:
