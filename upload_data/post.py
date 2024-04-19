@@ -32,3 +32,18 @@ async def main():
                 print(e)
 
 await main()
+
+# picture
+import os
+import requests
+
+dir_path = r'C:\Users\yanbe\Education\Mongo\make_data\game_images2'
+
+url = 'http://localhost:8082/upload'
+
+for filename in tqdm(os.listdir(dir_path)):
+    if filename.endswith(('.jpg')):
+        file_path = os.path.join(dir_path, filename)
+        with open(file_path, 'rb') as f:
+            response = requests.post(url, files={'fileToUpload': (filename, f)})
+            
