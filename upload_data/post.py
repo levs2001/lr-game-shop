@@ -1,8 +1,8 @@
 import pickle
 import json
-import requests
+import asyncio
+from aiohttp import ClientSession
 from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor
 
 with open('result.pkl', 'rb') as file:
     result = pickle.load(file)
@@ -11,15 +11,24 @@ url = 'http://localhost:8080/game-shop/add-game/'
 
 headers = {'Content-Type': 'application/json', 'accept': '*/*'}
 
-def send_request(record):
-    json_data = json.dumps(record)
-    response = requests.post(url, data=json_data, headers=headers)
-    return response
+async def send_request(session, record, semaphore):
+    async with semaphore:
+        async with session.post(url, json=record, headers=headers, timeout=30) as response:
+            return await response.text()
 
-pool = ThreadPoolExecutor(max_workers=5)
+async def main():
+    async with ClientSession() as session:
+        semaphore = asyncio.Semaphore(45) #change count thread
+        tasks = []
+        for record in tqdm(result):
+            task = asyncio.ensure_future(send_request(session, record, semaphore))
+            tasks.append(task)
+        responses = await asyncio.gather(*tasks)
+        print(responses)  
+        for response in tqdm(responses):
+            try:
+                print(response)
+            except Exception as e:
+                print(e)
 
-for page in tqdm(pool.map(send_request, result)):
-    try:
-        page
-    except Exception as e:
-        print(e)
+await main()
