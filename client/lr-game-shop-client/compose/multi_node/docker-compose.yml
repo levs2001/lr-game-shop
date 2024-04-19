@@ -13,6 +13,8 @@ services:
       - MINIO_ENDPOINTS=http://1.game-shop.minio.multi:9000,http://2.game-shop.minio.multi:9000,http://3.game-shop.minio.multi:9000
       - MINIO_ACCESS_KEY=admin
       - MINIO_SECRET_KEY=password
+      - SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE=30MB
+      - SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE=30MB
 
     depends_on:
       1.game-shop.cassandra.multi:
@@ -42,6 +44,8 @@ services:
       - MINIO_ENDPOINTS=http://1.game-shop.minio.multi:9000,http://2.game-shop.minio.multi:9000,http://3.game-shop.minio.multi:9000
       - MINIO_ACCESS_KEY=admin
       - MINIO_SECRET_KEY=password
+      - SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE=30MB
+      - SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE=30MB
 
     depends_on:
       1.game-shop.cassandra.multi:

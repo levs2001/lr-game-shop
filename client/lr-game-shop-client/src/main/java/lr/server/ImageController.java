@@ -37,6 +37,7 @@ public class ImageController {
         if (file.isEmpty()) {
             return "Please select a file to upload";
         }
+        log.info("Adding image {}", file.getOriginalFilename());
 
         byte[] bytes;
         try {
