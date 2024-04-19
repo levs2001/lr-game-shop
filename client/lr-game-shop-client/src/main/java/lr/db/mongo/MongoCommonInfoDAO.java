@@ -1,4 +1,4 @@
-package lr.client.mongo;
+package lr.db.mongo;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -6,7 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Indexes;
 import java.util.ArrayList;
-import lr.client.ICommonInfoDAO;
+import lr.db.ICommonInfoDAO;
 import lr.domain.CommonInfo;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -49,6 +49,11 @@ public class MongoCommonInfoDAO implements ICommonInfoDAO {
     @Override
     public List<CommonInfo> searchByPublisher(String publisher, int limit) {
         return searchList(CommonInfo.C_PUBLISHER, publisher, limit);
+    }
+
+    @Override
+    public long getGamesCount() {
+        return collection.countDocuments();
     }
 
     private List<CommonInfo> searchList(String colName, String colValue, int limit) {

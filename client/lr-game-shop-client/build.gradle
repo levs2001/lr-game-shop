@@ -8,9 +8,14 @@ plugins {
 group = 'lr.game.shop.client'
 version = '1.0.0'
 
+
 repositories {
     mavenCentral()
 }
+
+ext.versions = [
+    'cassandra': '4.17.0'
+]
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -27,11 +32,18 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.21.0'
 
     implementation 'com.codahale.metrics:metrics-core:3.0.2'
-    implementation 'com.datastax.cassandra:cassandra-driver-core:3.1.0'
+
+    implementation "com.datastax.oss:java-driver-core:${versions.cassandra}"
+    implementation "com.datastax.oss:java-driver-query-builder:${versions.cassandra}"
+    implementation "com.datastax.oss:java-driver-mapper-runtime:${versions.cassandra}"
 
     implementation 'org.mongodb:mongodb-driver-sync:5.0.1'
     implementation group: 'org.mongodb', name: 'mongodb-driver-core', version: '5.0.1'
     implementation group: 'org.mongodb', name: 'bson-record-codec', version: '5.0.1'
+
+    // https://mvnrepository.com/artifact/io.minio/minio
+    implementation 'io.minio:minio:8.5.9'
+
 
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
     implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'

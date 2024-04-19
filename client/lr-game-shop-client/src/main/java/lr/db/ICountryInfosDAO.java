@@ -1,4 +1,4 @@
-package lr.client;
+package lr.db;
 
 import lr.domain.CountryInfo;
 import lr.domain.CountryCode;
@@ -13,4 +13,6 @@ public interface ICountryInfosDAO {
     SearchGamesCountryResult searchByTitle(CountryCode countryCode, String title, int limit);
 
     void delete(long gameId);
+
+    long getAllGameCountryInfosCount();
 }

@@ -1,4 +1,4 @@
-package lr.client.mongo;
+package lr.db.mongo;
 
 import static java.util.Arrays.asList;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -7,7 +7,6 @@ import com.mongodb.ConnectionString;
 import com.mongodb.DBObjectCodecProvider;
 import com.mongodb.DBRefCodecProvider;
 import com.mongodb.DocumentToDBRefTransformer;
-import com.mongodb.Jep395RecordCodecProvider;
 import com.mongodb.KotlinCodecProvider;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;

@@ -50,4 +50,12 @@ public interface IGameShopController {
     @Operation(summary = "Delete game with current id")
     @DeleteMapping("delete-game/")
     ResponseEntity<Long> deleteGame(@RequestParam long id);
+
+    @Operation(summary = "Get games count")
+    @GetMapping("games/count/")
+    ResponseEntity<Long> getGamesCount();
+
+    @Operation(summary = "Get all game versions in all countries count")
+    @GetMapping("games/countries/")
+    ResponseEntity<Long> getAllGamesCountriesCount();
 }

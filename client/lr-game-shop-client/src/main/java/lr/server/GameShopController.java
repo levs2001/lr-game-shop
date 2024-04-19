@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import lr.client.ICommonInfoDAO;
-import lr.client.ICountryInfosDAO;
-import lr.client.SearchGamesCountryResult;
+import lr.db.ICommonInfoDAO;
+import lr.db.ICountryInfosDAO;
+import lr.db.SearchGamesCountryResult;
 import lr.domain.CommonInfo;
 import lr.domain.CountryCode;
 import lr.domain.CountryInfo;
@@ -46,9 +46,9 @@ public class GameShopController implements IGameShopController {
         CommonInfo commonInfo = commonInfoDAO.get(id);
         if (commonInfo != null) {
             Map<CountryCode, CountryInfo> countryInfos = countryInfosDAO.get(id);
-            return new ResponseEntity<>(new GameRow(commonInfo, countryInfos), HttpStatus.OK);
+            return ResponseEntity.ok(new GameRow(commonInfo, countryInfos));
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.notFound().build();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GameShopController implements IGameShopController {
 
         Set<Long> gameIds = games.gameIds();
         if (gameIds.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         List<GameRow> result = new ArrayList<>(gameIds.size());
@@ -68,7 +68,7 @@ public class GameShopController implements IGameShopController {
             result.add(new GameRow(commonInfo, games.getCountryInfos(gameId)));
         }
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return ResponseEntity.ok(result);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class GameShopController implements IGameShopController {
 
     private ResponseEntity<List<GameRow>> addRegionInfo(List<CommonInfo> games) {
         if (games.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         List<GameRow> result = new ArrayList<>(games.size());
@@ -96,7 +96,7 @@ public class GameShopController implements IGameShopController {
             result.add(new GameRow(game, countryInfos));
         }
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return ResponseEntity.ok(result);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class GameShopController implements IGameShopController {
         // TODO: Not transactional
         deleteGame(game.commonInfo().gameId());
         addGame(game);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok("Game %d was updated".formatted(game.commonInfo().gameId()));
     }
 
     @Override
@@ -114,6 +114,16 @@ public class GameShopController implements IGameShopController {
         log.info("Delete game {}", id);
         commonInfoDAO.delete(id);
         countryInfosDAO.delete(id);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return ResponseEntity.ok(id);
+    }
+
+    @Override
+    public ResponseEntity<Long> getGamesCount() {
+        return ResponseEntity.ok(commonInfoDAO.getGamesCount());
+    }
+
+    @Override
+    public ResponseEntity<Long> getAllGamesCountriesCount() {
+        return ResponseEntity.ok(countryInfosDAO.getAllGameCountryInfosCount());
     }
 }

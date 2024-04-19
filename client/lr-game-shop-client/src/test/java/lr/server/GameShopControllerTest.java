@@ -31,9 +31,7 @@ class GameShopControllerTest {
     @Test
     public void testAddAndGet() {
         GameRow expected = gameRows.get(1000L);
-
-        var status = controller.addGame(expected);
-        assertEquals(HttpStatus.CREATED, status.getStatusCode());
+        addWithCheck(expected);
 
         ResponseEntity<GameRow> answer = controller.getGame(expected.commonInfo().gameId());
         assertEquals(HttpStatus.OK, answer.getStatusCode());
@@ -44,10 +42,7 @@ class GameShopControllerTest {
 
     @Test
     public void testSearchByTitle() {
-        for (GameRow game : gameRows.getAllGames()) {
-            var status = controller.addGame(game);
-            assertEquals(HttpStatus.CREATED, status.getStatusCode());
-        }
+        gameRows.getAllGames().forEach(this::addWithCheck);
 
         CountryCode countryCode = CountryCode.EN;
         long katoId = 1001L;
@@ -62,9 +57,27 @@ class GameShopControllerTest {
         var idsStalker = stalker.stream().map(r -> r.commonInfo().gameId()).toList();
         assertEquals(List.of(1003L, 1004L), idsStalker);
 
-        for (long id : gameRows.getAllIds()) {
-            deleteWithCheck(id);
-        }
+        gameRows.getAllIds().forEach(this::deleteWithCheck);
+    }
+
+    @Test
+    public void testGamesCount() {
+        gameRows.getAllGames().forEach(this::addWithCheck);
+
+        var gamesCountActual = controller.getGamesCount();
+        assertEquals(HttpStatus.OK, gamesCountActual.getStatusCode());
+        assertEquals(gameRows.getAllGames().size(), gamesCountActual.getBody());
+
+        var gamesAllCountriesCount = controller.getAllGamesCountriesCount();
+        assertEquals(HttpStatus.OK, gamesAllCountriesCount.getStatusCode());
+        assertEquals(gameRows.getCountriesInfosCount(), gamesAllCountriesCount.getBody());
+
+        gameRows.getAllIds().forEach(this::deleteWithCheck);
+    }
+
+    private void addWithCheck(GameRow game) {
+        var status = controller.addGame(game);
+        assertEquals(HttpStatus.CREATED, status.getStatusCode());
     }
 
     public List<GameRow> searchTitleWithCheck(String title, CountryCode code) {

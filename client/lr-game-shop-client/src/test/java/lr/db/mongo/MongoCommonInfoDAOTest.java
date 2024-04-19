@@ -1,4 +1,4 @@
-package lr.client.mongo;
+package lr.db.mongo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lr.Application;
-import lr.client.ICommonInfoDAO;
+import lr.db.ICommonInfoDAO;
 import lr.domain.CommonInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,16 +1,20 @@
-package lr.client.cassandra;
+package lr.db.cassandra;
 
-import com.datastax.driver.core.Row;
-import java.util.HashMap;
-import lr.client.ICountryInfosDAO;
-import lr.client.SearchGamesCountryResult;
-import com.datastax.driver.core.ResultSet;
-import com.datastax.driver.core.Session;
-import com.datastax.driver.core.querybuilder.QueryBuilder;
-import lr.domain.CountryInfo;
-import lr.domain.CountryCode;
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.deleteFrom;
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.insertInto;
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.literal;
+import static com.datastax.oss.driver.api.querybuilder.QueryBuilder.selectFrom;
+
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.ResultSet;
+import com.datastax.oss.driver.api.core.cql.Row;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
+import lr.db.ICountryInfosDAO;
+import lr.db.SearchGamesCountryResult;
+import lr.domain.CountryCode;
+import lr.domain.CountryInfo;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,9 +29,9 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     private static final String C_PRICE = "price";
     private static final String[] ALL_COLUMNS = new String[] {C_GAME_ID, C_LANGUAGE_CODE, C_TITLE, C_DESCRIPTION, C_PRICE};
 
-    private final Session session;
+    private final CqlSession session;
 
-    public CassandraCountryInfosDAO(Session session) {
+    public CassandraCountryInfosDAO(CqlSession session) {
         this.session = session;
 
         initTable();
@@ -39,9 +43,13 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
         for (var entry : countryInfos.entrySet()) {
             var countryField = entry.getValue();
             session.execute(
-                QueryBuilder.insertInto(KEYSPACE, TABLE).values(ALL_COLUMNS, new Object[] {
-                    gameId, entry.getKey().name(), countryField.title(), countryField.description(), countryField.price()
-                })
+                insertInto(KEYSPACE, TABLE)
+                    .value(C_GAME_ID, literal(gameId))
+                    .value(C_LANGUAGE_CODE, literal(entry.getKey().name()))
+                    .value(C_TITLE, literal(countryField.title()))
+                    .value(C_DESCRIPTION, literal(countryField.description()))
+                    .value(C_PRICE, literal(countryField.price()))
+                    .build()
             );
         }
     }
@@ -49,7 +57,7 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     @Override
     public Map<CountryCode, CountryInfo> get(long gameId) {
         ResultSet resultSet = session.execute(
-            QueryBuilder.select(ALL_COLUMNS).from(KEYSPACE, TABLE).where(QueryBuilder.eq(C_GAME_ID, gameId))
+            selectFrom(KEYSPACE, TABLE).all().whereColumn(C_GAME_ID).isEqualTo(literal(gameId)).build()
         );
 
         Map<CountryCode, CountryInfo> result = new EnumMap<>(CountryCode.class);
@@ -60,9 +68,12 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     @Override
     public SearchGamesCountryResult searchByTitle(CountryCode countryCode, String title, int limit) {
         ResultSet resultSet = session.execute(
-            QueryBuilder.select(ALL_COLUMNS).from(KEYSPACE, TABLE)
-                .where(QueryBuilder.eq(C_TITLE, title)).and(QueryBuilder.eq(C_LANGUAGE_CODE, countryCode.name()))
-                .limit(limit).allowFiltering()
+            selectFrom(KEYSPACE, TABLE).all()
+                .whereColumn(C_TITLE).isEqualTo(literal(title))
+                .whereColumn(C_LANGUAGE_CODE).isEqualTo(literal(countryCode.name()))
+                .limit(limit)
+                .allowFiltering()
+                .build()
         );
         Map<Long, Map<CountryCode, CountryInfo>> results = new HashMap<>();
         resultSet.forEach(r -> putCountryEntry(results.computeIfAbsent(r.getLong(C_GAME_ID), k -> new HashMap<>()), r));
@@ -80,8 +91,15 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     @Override
     public void delete(long gameId) {
         session.execute(
-            QueryBuilder.delete().from(KEYSPACE, TABLE).where(QueryBuilder.eq(C_GAME_ID, gameId))
+            deleteFrom(KEYSPACE, TABLE).whereColumn(C_GAME_ID).isEqualTo(literal(gameId)).build()
         );
+    }
+
+    @Override
+    public long getAllGameCountryInfosCount() {
+        return session.execute(
+            selectFrom(KEYSPACE, TABLE).countAll().build()
+        ).one().getLong("count");
     }
 
     private void initTable() {

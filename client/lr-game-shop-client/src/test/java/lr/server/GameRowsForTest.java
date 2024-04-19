@@ -62,10 +62,17 @@ public class GameRowsForTest {
 
     private final Set<Long> allIds;
     private final Collection<GameRow> allGames;
+    private final long countriesInfosCount;
 
     public GameRowsForTest() {
         allIds = gameMap.keySet();
         allGames = gameMap.values();
+
+        long countriesInfosCount = 0;
+        for (var game : allGames) {
+            countriesInfosCount += game.countryInfos().size();
+        }
+        this.countriesInfosCount = countriesInfosCount;
     }
 
     public Set<Long> getAllIds() {
@@ -74,6 +81,10 @@ public class GameRowsForTest {
 
     public Collection<GameRow> getAllGames() {
         return allGames;
+    }
+
+    public long getCountriesInfosCount() {
+        return countriesInfosCount;
     }
 
     public GameRow get(long id) {

@@ -1,4 +1,4 @@
-package lr.client;
+package lr.db;
 
 import lr.domain.CountryInfo;
 import lr.domain.CountryCode;

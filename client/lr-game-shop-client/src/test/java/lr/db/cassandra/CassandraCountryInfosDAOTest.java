@@ -1,4 +1,4 @@
-package lr.client.cassandra;
+package lr.db.cassandra;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import lr.Application;
-import lr.client.ICountryInfosDAO;
-import lr.client.SearchGamesCountryResult;
+import lr.db.ICountryInfosDAO;
+import lr.db.SearchGamesCountryResult;
 import lr.domain.CountryInfo;
 import lr.domain.CountryCode;
 import org.junit.jupiter.api.Test;
