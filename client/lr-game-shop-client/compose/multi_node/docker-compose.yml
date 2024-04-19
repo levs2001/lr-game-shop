@@ -30,6 +30,35 @@ services:
           memory: 256M
           cpus: '0.25'
 
+  2.game-shop.client.multi:
+    image: lr-game-shop-client:0.0.1
+    container_name: 2.game-shop.client.multi
+    ports:
+      - "8082:8080"
+    environment:
+      - CASSANDRA_NODE_ADDRESSES=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+      - CASSANDRA_NODE_PORT=9042
+      - MONGO_URI=mongodb://1.game-shop.mongo.multi:30001,2.game-shop.mongo.multi:30001,3.game-shop.mongo.multi:30001/
+      - MINIO_ENDPOINTS=http://1.game-shop.minio.multi:9000,http://2.game-shop.minio.multi:9000,http://3.game-shop.minio.multi:9000
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password
+
+    depends_on:
+      1.game-shop.cassandra.multi:
+        condition: service_healthy
+      1.game-shop.mongo.multi:
+        condition: service_healthy
+    networks:
+      - game-shop-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
   1.game-shop.cassandra.multi:
     image: cassandra:5.0
     container_name: 1.game-shop.cassandra.multi
