@@ -1,0 +1,283 @@
+version: '3.8'
+
+services:
+  1.game-shop.client.multi:
+    image: lr-game-shop-client:0.0.1
+    container_name: 1.game-shop.client.multi
+    ports:
+      - "8080:8080"
+    environment:
+      - CASSANDRA_NODE_ADDRESSES=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+      - CASSANDRA_NODE_PORT=9042
+      - MONGO_URI=mongodb://1.game-shop.mongo.multi:30001,2.game-shop.mongo.multi:30001,3.game-shop.mongo.multi:30001/
+      - MINIO_ENDPOINTS=http://minio1:9000,http://minio2:9000,http://minio3:9000
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password
+      - SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE=30MB
+      - SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE=30MB
+
+    depends_on:
+      1.game-shop.cassandra.multi:
+        condition: service_healthy
+      1.game-shop.mongo.multi:
+        condition: service_healthy
+      1.minio.initializer.multi:
+        condition: service_completed_successfully
+    networks:
+      - game-shop-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  2.game-shop.client.multi:
+    image: lr-game-shop-client:0.0.1
+    container_name: 2.game-shop.client.multi
+    ports:
+      - "8082:8080"
+    environment:
+      - CASSANDRA_NODE_ADDRESSES=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+      - CASSANDRA_NODE_PORT=9042
+      - MONGO_URI=mongodb://1.game-shop.mongo.multi:30001,2.game-shop.mongo.multi:30001,3.game-shop.mongo.multi:30001/
+      - MINIO_ENDPOINTS=http://minio1:9000,http://minio2:9000,http://minio3:9000
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password
+      - SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE=30MB
+      - SPRING_SERVLET_MULTIPART_MAX-REQUEST-SIZE=30MB
+
+    depends_on:
+      1.game-shop.cassandra.multi:
+        condition: service_healthy
+      1.game-shop.mongo.multi:
+        condition: service_healthy
+    networks:
+      - game-shop-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+
+  1.game-shop.cassandra.multi:
+    image: cassandra:5.0
+    container_name: 1.game-shop.cassandra.multi
+    volumes:
+      - ./data/cassandra-1:/data/db,size=8G
+    environment:
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=64M
+      - CASSANDRA_SEEDS=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  2.game-shop.cassandra.multi:
+    image: cassandra:5.0
+    container_name: 2.game-shop.cassandra.multi
+    volumes:
+      - ./data/cassandra-2:/data/db,size=8G
+    environment:
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=64M
+      - CASSANDRA_SEEDS=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  3.game-shop.cassandra.multi:
+    image: cassandra:5.0
+    container_name: 3.game-shop.cassandra.multi
+    volumes:
+      - ./data/cassandra-3:/data/db,size=8G
+    environment:
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=64M
+      - CASSANDRA_SEEDS=1.game-shop.cassandra.multi,2.game-shop.cassandra.multi,3.game-shop.cassandra.multi
+    healthcheck:
+      test: [ "CMD-SHELL", "[ $$(nodetool statusgossip) = running ]" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1200M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  1.game-shop.mongo.multi:
+    image: mongo:5
+    container_name: 1.game-shop.mongo.multi
+    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001" ]
+    volumes:
+      - ./data/mongo-1:/data/db,size=8G
+    healthcheck:
+      test: test $$(echo "rs.initiate({_id:'my-replica-set',members:[{_id:0,host:\"1.game-shop.mongo.multi:30001\"},{_id:1,host:\"2.game-shop.mongo.multi:30001\"},{_id:2,host:\"3.game-shop.mongo.multi:30001\"}]}).ok || rs.status().ok" | mongo --port 30001 --quiet) -eq 1
+      interval: 10s
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  2.game-shop.mongo.multi:
+    image: mongo:5
+    container_name: 2.game-shop.mongo.multi
+    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001" ]
+    volumes:
+      - ./data/mongo-2:/data/db,size=8G
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  3.game-shop.mongo.multi:
+    image: mongo:5
+    container_name: 3.game-shop.mongo.multi
+    command: [ "--replSet", "my-replica-set", "--bind_ip_all", "--port", "30001" ]
+    volumes:
+      - ./data/mongo-3:/data/db,size=8G
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  1.minio.initializer.multi:
+    container_name: 1.minio.initializer.multi
+    image: minio/mc:RELEASE.2023-10-14T01-57-03Z
+    entrypoint: [ "/bin/bash", "/init.sh" ]
+    volumes:
+      - ./init.sh:/init.sh
+    environment:
+      - MC_HOST_minio1=http://admin:password@minio1:9000
+      - MC_HOST_minio2=http://admin:password@minio2:9000
+      - MC_HOST_minio3=http://admin:password@minio3:9000
+    networks:
+      - game-shop-network
+
+  minio1:
+    image: minio/minio:RELEASE.2023-06-29T05-12-28Z
+    volumes:
+      - ./data/minio-1:/data,size=10G
+    command: server --console-address ":9001" /data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  minio2:
+    image: minio/minio:RELEASE.2023-06-29T05-12-28Z
+    volumes:
+      - ./data/minio-2:/data,size=10G
+    command: server --console-address ":9001" /data
+    ports:
+      - "9020:9000"
+      - "9002:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+  minio3:
+    image: minio/minio:RELEASE.2023-06-29T05-12-28Z
+    volumes:
+      - ./data/minio-3:/data,size=10G
+    command: server --console-address ":9001" /data
+    ports:
+      - "9030:9000"
+      - "9003:9001"
+    environment:
+      -  MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 256m
+          cpus: '0.25'
+    networks:
+      - game-shop-network
+
+
+networks:
+  game-shop-network:
+    driver: bridge
