@@ -27,7 +27,6 @@ public class CassandraCountryInfosDAO implements ICountryInfosDAO {
     private static final String C_TITLE = "title";
     private static final String C_DESCRIPTION = "description";
     private static final String C_PRICE = "price";
-    private static final String[] ALL_COLUMNS = new String[] {C_GAME_ID, C_LANGUAGE_CODE, C_TITLE, C_DESCRIPTION, C_PRICE};
 
     private final CqlSession session;
 

@@ -14,3 +14,8 @@
 
 artifacts
 .DS_Store
+
+# Files to check data uploading, very big size, so ignored
+upload_data/game_images2-001.zip
+upload_data/result.pkl
+upload_data/.ipynb_checkpoints/
